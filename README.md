@@ -37,6 +37,8 @@ make # build
 make qemu # run
 ```
 
+**NOTE:** If you do not have the privileges to execute an instruction, use sudo, the password is `xv6`
+
 If all goes well you will see something similar to:
 
 ```text
