@@ -75,6 +75,11 @@ void find(char *path, char *pattern) {
         continue;
       }
 
+      // char new_path[LIMIT_LEN_PATH];
+      // memmove(new_path, path, strlen(path) + 1);
+      // memmove(new_path + strlen(path), "/", 2);
+      // memmove(new_path + strlen(path) + 1, de.name, DIRSIZ);
+
       if (strlen(path) + 1 + strlen(de.name) + 1 >= LIMIT_LEN_PATH) {
         fprintf(2, "find: recursive path too long\n");
         exit(1);

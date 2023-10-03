@@ -315,6 +315,9 @@ fork(void)
   np->state = RUNNABLE;
   release(&np->lock);
 
+  // Lab 4: Pass to the child trace mask
+  np->tracenum = p->tracenum;
+
   return pid;
 }
 
@@ -653,4 +656,18 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+
+// Get the number of processes with a status other than UNUSED
+int
+num_active_proc(void)
+{
+  struct proc *p;
+  int activeproc = 0;
+  for (p = proc; p < &proc[NPROC]; p++) {
+    if (p->state != UNUSED)
+      activeproc++;
+  }
+  return activeproc;
 }

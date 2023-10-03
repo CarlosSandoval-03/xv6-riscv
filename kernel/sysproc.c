@@ -95,3 +95,28 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_trace(void)
+{
+  struct proc *p = myproc();
+  int mask;
+
+  if (argint(0, &mask) < 0) {
+    return -1;
+  }
+  p->tracenum = mask;
+
+  return 0;
+}
+
+uint64
+sys_sysinfo(void)
+{
+  struct proc *p = myproc();
+  uint64 info; // user pointer to struct sysinfo
+  if (argaddr(0, &info) < 0)
+    return -1;
+
+  return get_system_info(info);
+}

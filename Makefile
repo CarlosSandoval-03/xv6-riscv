@@ -30,7 +30,8 @@ OBJS = \
   $K/sysfile.o \
   $K/kernelvec.o \
   $K/plic.o \
-  $K/virtio_disk.o
+  $K/virtio_disk.o \
+  $K/system.o \
 
 OBJS_KCSAN = \
   $K/start.o \
@@ -91,8 +92,8 @@ LD = $(TOOLPREFIX)ld
 OBJCOPY = $(TOOLPREFIX)objcopy
 OBJDUMP = $(TOOLPREFIX)objdump
 
-#CFLAGS = -Wall -Werror -O -fno-omit-frame-pointer -ggdb
-CFLAGS = -O -fno-omit-frame-pointer -ggdb
+# CFLAGS = -Wall -Werror -O -fno-omit-frame-pointer -ggdb
+CFLAGS = -Wall -O -fno-omit-frame-pointer -ggdb
 
 ifdef LAB
 LABUPPER = $(shell echo $(LAB) | tr a-z A-Z)
@@ -199,6 +200,8 @@ UPROGS=\
 	$U/_primes\
 	$U/_find\
 	$U/_xargs\
+	$U/_trace \
+	$U/_sysinfotest \
 
 
 
@@ -271,7 +274,7 @@ fs.img: mkfs/mkfs README $(UEXTRA) $(UPROGS)
 
 -include kernel/*.d user/*.d
 
-clean: 
+clean:
 	rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
 	*/*.o */*.d */*.asm */*.sym \
 	$U/initcode $U/initcode.out $K/kernel fs.img \
